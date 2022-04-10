@@ -65,6 +65,7 @@ const Connect = styled.button`
   cursor: pointer;
   &:hover {
     border: 2px solid ${theme.colors.orange};
+    box-shadow: 0px 0px 10px 5px rgba(236, 192, 159, 0.225);
   }
 
   img {

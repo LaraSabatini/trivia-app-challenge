@@ -23,7 +23,7 @@ const StartButton = styled.button<{ active: boolean }>`
           cursor: pointer;
           &:hover {
             border: 2px solid ${theme.colors.orange_light};
-            box-shadow: 0px 4px 10px 5px rgba(236, 193, 159, 0.1);
+            box-shadow: 0px 0px 10px 5px rgba(236, 192, 159, 0.326);
           }
         `
       : css`
