@@ -3,7 +3,7 @@ import theme from "theme/index"
 
 const StartButton = styled.button<{ active: boolean }>`
   display: flex;
-  margin: 300px auto;
+  margin: 200px auto;
   outline: none;
   border: 2px solid transparent;
   padding: 20px 25px;
@@ -13,7 +13,7 @@ const StartButton = styled.button<{ active: boolean }>`
 
   @media screen and (max-width: 700px) {
     border-radius: 10px;
-    font-size: ${theme.fontSizes.secondDesktop};
+    font-size: ${theme.fontSizes.button};
   }
 
   ${props =>

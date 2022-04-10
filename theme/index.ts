@@ -8,10 +8,10 @@ export default {
     orange_light: "#ECC19F",
   },
   fontSizes: {
-    title: "42px",
+    title: "30px",
     secondDesktop: "20px",
     button: "15px",
-    mainButton: "30px",
+    mainButton: "20px",
   },
   fontFamilies: {
     primary: "JetBrains Mono",

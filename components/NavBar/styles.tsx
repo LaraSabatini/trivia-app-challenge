@@ -12,7 +12,7 @@ const Navigation = styled.nav`
 
 const LogoContainer = styled.div`
   display: flex;
-  gap: 30px;
+  gap: 20px;
   flex-wrap: wrap;
   align-items: flex-end;
   @media screen and (max-width: ${theme.resolutions.tablet}) {
@@ -30,8 +30,8 @@ const Title = styled.h1`
 `
 
 const ImageContainer = styled.div`
-  width: 112px;
-  height: 112px;
+  width: 80px;
+  height: 80px;
   background: ${theme.colors.gray};
   border-radius: 10px;
   display: flex;
