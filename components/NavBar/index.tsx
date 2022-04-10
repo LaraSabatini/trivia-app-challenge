@@ -12,11 +12,11 @@ import {
 
 function NavBar() {
   const { plainContent } = useContext(PlainContentContext)
-  const { setIsConnected } = useContext(AppContext)
+  const { setIsConnected, isConnected } = useContext(AppContext)
 
   const connectToWallet = () => {
     console.log("connecting")
-    setIsConnected(true)
+    setIsConnected(!isConnected)
   }
 
   return (
@@ -28,7 +28,7 @@ function NavBar() {
         <Title>{plainContent?.title}</Title>
       </LogoContainer>
       <Connect onClick={connectToWallet}>
-        <p>Connect</p>
+        <p>{!isConnected ? "Connect" : "Disconnect"}</p>
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
           alt="Connect"

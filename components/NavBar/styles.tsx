@@ -53,6 +53,7 @@ const ImageContainer = styled.div`
 
 const Connect = styled.button`
   border-radius: 5px;
+  outline: none;
   background: ${theme.colors.orange_light};
   font-family: ${theme.fontFamily};
   border: 2px solid transparent;
