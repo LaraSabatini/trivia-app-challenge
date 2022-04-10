@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "^7.17.9",
     "antd": "4.19.5",
     "axios": "0.26.1",
     "eslint-config-prettier": "8.2.0",
