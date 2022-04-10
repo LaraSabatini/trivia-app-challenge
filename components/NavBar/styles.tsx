@@ -15,7 +15,7 @@ const LogoContainer = styled.div`
   gap: 30px;
   flex-wrap: wrap;
   align-items: flex-end;
-  @media screen and (max-width: 730px) {
+  @media screen and (max-width: ${theme.resolutions.tablet}) {
     gap: 10px;
   }
 `
@@ -24,8 +24,8 @@ const Title = styled.h1`
   color: ${theme.colors.gray};
   font-size: ${theme.fontSizes.title};
   margin: 0;
-  @media screen and (max-width: 700px) {
-    font-size: 20px;
+  @media screen and (max-width: ${theme.resolutions.tablet}) {
+    font-size: ${theme.fontSizes.secondDesktop};
   }
 `
 
@@ -41,11 +41,11 @@ const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
   }
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: ${theme.resolutions.tablet}) {
     width: 50px;
     height: 50px;
   }
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: ${theme.resolutions.mobile}) {
     width: 35px;
     height: 35px;
   }
@@ -55,7 +55,7 @@ const Connect = styled.button`
   border-radius: 5px;
   outline: none;
   background: ${theme.colors.orange_light};
-  font-family: ${theme.fontFamily};
+  font-family: ${theme.fontFamilies.primary};
   border: 2px solid transparent;
   display: flex;
   align-items: center;
@@ -74,21 +74,21 @@ const Connect = styled.button`
 
   p {
     margin: 0;
-    font-size: 20px;
+    font-size: ${theme.fontSizes.secondDesktop};
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: ${theme.resolutions.tablet}) {
     img {
       width: 28px;
       height: 28px;
     }
     padding: 5px 10px;
     p {
-      font-size: 15px;
+      font-size: ${theme.fontSizes.button};
     }
   }
 
-  @media screen and (max-width: 410px) {
+  @media screen and (max-width: ${theme.resolutions.mobile}) {
     p {
       display: none;
     }

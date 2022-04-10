@@ -7,13 +7,13 @@ const StartButton = styled.button<{ active: boolean }>`
   outline: none;
   border: 2px solid transparent;
   padding: 20px 25px;
-  font-family: ${theme.fontFamily};
-  font-size: 30px;
+  font-family: ${theme.fontFamilies.primary};
+  font-size: ${theme.fontSizes.mainButton};
   border-radius: 10px;
 
   @media screen and (max-width: 700px) {
     border-radius: 10px;
-    font-size: 20px;
+    font-size: ${theme.fontSizes.secondDesktop};
   }
 
   ${props =>

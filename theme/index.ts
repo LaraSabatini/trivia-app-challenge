@@ -9,6 +9,17 @@ export default {
   },
   fontSizes: {
     title: "42px",
+    secondDesktop: "20px",
+    button: "15px",
+    mainButton: "30px",
   },
-  fontFamily: "JetBrains Mono",
+  fontFamilies: {
+    primary: "JetBrains Mono",
+  },
+  resolutions: {
+    desktop: "1920px",
+    secondDesktop: "1366px",
+    tablet: "750px",
+    mobile: "450px",
+  },
 }
