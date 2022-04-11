@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { createContext, useState } from "react"
+import web3 from "web3"
 
 export const AppContext = createContext({
   pageState: null,
@@ -7,50 +9,68 @@ export const AppContext = createContext({
   isConnected: null,
   setIsConnected: null,
   connectToMetamask: null,
-  connectedToRopsten: null,
-  setConnectedToRopsten: null,
+  changeNetwork: null,
 })
 
 function AppProvider({ children }) {
   // State to control the page view
   const [pageState, setPageState] = useState<string>("")
-  // State to see if the wallet is connected or not to the wallet
-  const [isConnected, setIsConnected] = useState<boolean>(false)
-  // State to see if the wallet is connected to the right network
-  const [connectedToRopsten, setConnectedToRopsten] = useState<boolean>(false)
+  // State to see if the wallet is connected to the wallet and the right network
+  const [isConnected, setIsConnected] = useState<{
+    connectedToMetamastk: boolean
+    connectedToNetwork: boolean
+  }>({
+    connectedToMetamastk: false,
+    connectedToNetwork: undefined,
+  })
 
+  // const { ethereum } = window
+  const network = "0x3"
+
+  // Function to connect wallet
   const connectToMetamask = async () => {
     const { ethereum } = window
-
+    // To detect network
     const chainId = await ethereum.request({ method: "eth_chainId" })
     handleChainChanged(chainId)
     ethereum.on("chainChanged", handleChainChanged)
 
     function handleChainChanged(_chainId: any) {
-      // DETECCION DE LA RED => TIENE QUE SER 0x3 la ropsten
-      // Hacer condicional de una sola linea
-      // eslint-disable-next-line no-console
-      console.log("Red conectada", _chainId)
-      if (_chainId === "0x3") {
-        setConnectedToRopsten(true)
-      } else {
-        setConnectedToRopsten(false)
-        // Mostrar boton para cambiar de red
-      }
+      const connection =
+        _chainId === network
+          ? setIsConnected({
+              connectedToMetamastk: true,
+              connectedToNetwork: true,
+            })
+          : setIsConnected({
+              connectedToMetamastk: true,
+              connectedToNetwork: false,
+            })
+      console.log("Red conectada a Network?", connection)
     }
-
+    // To connect with metamask
     if (typeof window !== undefined) {
       if (ethereum) {
-        ethereum.request({ method: "eth_requestAccounts" }).then((res: any) => {
-          // eslint-disable-next-line no-console
-          console.log("respuesta conexion", res)
-          setIsConnected(true)
+        ethereum.request({ method: "eth_requestAccounts" }).then(() => {
+          setIsConnected({
+            connectedToMetamastk: true,
+            connectedToNetwork: isConnected.connectedToMetamastk,
+          })
         })
       } else {
         // eslint-disable-next-line no-alert
         alert("Please install metamask extension to continue")
       }
     }
+  }
+
+  // Function to change network
+  const changeNetwork = async () => {
+    const { ethereum } = window
+    await ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: web3.utils.toHex(network) }],
+    })
   }
 
   return (
@@ -62,8 +82,7 @@ function AppProvider({ children }) {
         isConnected,
         setIsConnected,
         connectToMetamask,
-        connectedToRopsten,
-        setConnectedToRopsten,
+        changeNetwork,
       }}
     >
       {children}

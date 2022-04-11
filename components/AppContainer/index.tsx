@@ -22,8 +22,14 @@ function MainContainer() {
   return (
     <>
       <NavBar />
-      <StartButton active={isConnected}>
-        {isConnected ? "Start survey" : "Connect to start survey"}
+      <StartButton
+        active={
+          isConnected.connectedToMetamastk && isConnected.connectedToNetwork
+        }
+      >
+        {isConnected.connectedToMetamastk && isConnected.connectedToNetwork
+          ? "Start survey"
+          : "Connect to start survey"}
       </StartButton>
     </>
   )

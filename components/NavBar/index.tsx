@@ -12,12 +12,9 @@ import {
 
 function NavBar() {
   const { plainContent } = useContext(PlainContentContext)
-  const { isConnected, connectToMetamask } = useContext(AppContext)
-
-  const connectToWallet = () => {
-    connectToMetamask()
-    // Mostrar el balance del token $QUIZ
-  }
+  const { connectToMetamask, isConnected, changeNetwork } = useContext(
+    AppContext,
+  )
 
   return (
     <Navigation>
@@ -27,13 +24,25 @@ function NavBar() {
         </ImageContainer>
         <Title>{plainContent?.title}</Title>
       </LogoContainer>
-      <Connect onClick={connectToWallet}>
-        <p>{!isConnected && "Connect"}</p>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
-          alt="Connect"
-        />
-      </Connect>
+      {(isConnected.connectedToNetwork === undefined ||
+        isConnected.connectedToNetwork) && (
+        <Connect onClick={connectToMetamask}>
+          <p>{!isConnected.connectedToNetwork ? "Connect" : "Connected"}</p>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
+            alt="Metamask Logo"
+          />
+        </Connect>
+      )}
+      {isConnected.connectedToNetwork === false && (
+        <Connect onClick={changeNetwork}>
+          <p>Change network</p>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
+            alt="Metamask Logo"
+          />
+        </Connect>
+      )}
     </Navigation>
   )
 }
