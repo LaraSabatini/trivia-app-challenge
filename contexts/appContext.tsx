@@ -1,20 +1,17 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-alert */
 import { createContext, useState } from "react"
 import web3 from "web3"
 
 export const AppContext = createContext({
-  pageState: null,
-  setPageState: null,
   isConnected: null,
   setIsConnected: null,
-  connectToMetamask: null,
+  connect: null,
   changeNetwork: null,
+  checkIfIsAlreadyConnected: null,
 })
 
 function AppProvider({ children }) {
-  // State to control the page view
-  const [pageState, setPageState] = useState<string>("")
   // State to see if the wallet is connected to the wallet and the right network
   const [isConnected, setIsConnected] = useState<{
     connectedToMetamastk: boolean
@@ -24,65 +21,99 @@ function AppProvider({ children }) {
     connectedToNetwork: undefined,
   })
 
-  // const { ethereum } = window
-  const network = "0x3"
+  const networks = {
+    Mainnet: "0x1",
+    Ropsten: "0x3",
+    Rinkeby: "0x4",
+    Goerli: "0x5",
+    Kovan: "0x2a",
+  }
 
-  // Function to connect wallet
-  const connectToMetamask = async () => {
-    const { ethereum } = window
-    // To detect network
-    const chainId = await ethereum.request({ method: "eth_chainId" })
-    handleChainChanged(chainId)
-    ethereum.on("chainChanged", handleChainChanged)
-
-    function handleChainChanged(_chainId: any) {
-      const connection =
-        _chainId === network
-          ? setIsConnected({
-              connectedToMetamastk: true,
-              connectedToNetwork: true,
-            })
-          : setIsConnected({
-              connectedToMetamastk: true,
-              connectedToNetwork: false,
-            })
-      console.log("Red conectada a Network?", connection)
-    }
-    // To connect with metamask
-    if (typeof window !== undefined) {
-      if (ethereum) {
-        ethereum.request({ method: "eth_requestAccounts" }).then(() => {
-          setIsConnected({
-            connectedToMetamastk: true,
-            connectedToNetwork: isConnected.connectedToMetamastk,
+  // To detect which network is connected to the network
+  const handleChainChanged = (
+    _chainId: string,
+    isConnectedToMetamask: boolean,
+  ) => {
+    const connection =
+      _chainId === networks.Ropsten
+        ? setIsConnected({
+            connectedToMetamastk: isConnectedToMetamask,
+            connectedToNetwork: true,
           })
+        : setIsConnected({
+            connectedToMetamastk: isConnectedToMetamask,
+            connectedToNetwork: false,
+          })
+    return connection
+  }
+
+  // To connect wallet
+  const connect = async () => {
+    const { ethereum } = window
+    // Get the chain id
+    const chainId = await ethereum.request({ method: "eth_chainId" })
+
+    if (typeof window !== undefined && ethereum) {
+      ethereum.request({ method: "eth_requestAccounts" }).then(() => {
+        setIsConnected({
+          connectedToMetamastk: true,
+          connectedToNetwork: isConnected.connectedToNetwork,
         })
-      } else {
-        // eslint-disable-next-line no-alert
-        alert("Please install metamask extension to continue")
-      }
+        handleChainChanged(chainId, true)
+      })
+    } else {
+      alert("Please install metamask extension to continue")
     }
   }
 
-  // Function to change network
+  // To change network
   const changeNetwork = async () => {
     const { ethereum } = window
     await ethereum.request({
       method: "wallet_switchEthereumChain",
-      params: [{ chainId: web3.utils.toHex(network) }],
+      params: [{ chainId: web3.utils.toHex(networks.Ropsten) }],
     })
+    const chainId = await ethereum.request({ method: "eth_chainId" })
+    handleChainChanged(chainId, true)
+  }
+
+  // To check if is already connected to the network
+  const checkIfIsAlreadyConnected = async () => {
+    console.log("chequeando si ya esta conectado")
+
+    if (typeof window !== undefined) {
+      const { ethereum } = window
+      // Check if is connected to metamask
+      const connectedToMetamastk = await ethereum.request({
+        method: "eth_accounts",
+      })
+      const chainId = await ethereum.request({ method: "eth_chainId" })
+
+      if (connectedToMetamastk.length > 0) {
+        setIsConnected({
+          connectedToMetamastk: true,
+          connectedToNetwork: isConnected.connectedToNetwork,
+        })
+        handleChainChanged(chainId, true)
+      } else {
+        setIsConnected({
+          connectedToMetamastk: false,
+          connectedToNetwork: isConnected.connectedToNetwork,
+        })
+        handleChainChanged(chainId, false)
+      }
+    }
   }
 
   return (
     <AppContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        pageState,
-        setPageState,
         isConnected,
         setIsConnected,
-        connectToMetamask,
+        connect,
         changeNetwork,
+        checkIfIsAlreadyConnected,
       }}
     >
       {children}
