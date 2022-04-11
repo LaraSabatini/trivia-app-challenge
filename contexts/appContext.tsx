@@ -92,6 +92,7 @@ function AppProvider({ children }) {
       const connectedToMetamastk = await ethereum.request({
         method: "eth_accounts",
       })
+      setAccount(connectedToMetamastk)
 
       const chainId = await ethereum.request({ method: "eth_chainId" })
 
