@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
 import { AppContext } from "contexts/appContext"
 import {
@@ -12,9 +12,17 @@ import {
 
 function NavBar() {
   const { plainContent } = useContext(PlainContentContext)
-  const { connectToMetamask, isConnected, changeNetwork } = useContext(
-    AppContext,
-  )
+  const {
+    connect,
+    isConnected,
+    changeNetwork,
+    checkIfIsAlreadyConnected,
+  } = useContext(AppContext)
+
+  useEffect(() => {
+    checkIfIsAlreadyConnected()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Navigation>
@@ -24,19 +32,19 @@ function NavBar() {
         </ImageContainer>
         <Title>{plainContent?.title}</Title>
       </LogoContainer>
-      {(isConnected.connectedToNetwork === undefined ||
-        isConnected.connectedToNetwork) && (
-        <Connect onClick={connectToMetamask}>
-          <p>{!isConnected.connectedToNetwork ? "Connect" : "Connected"}</p>
+      {isConnected.connectedToMetamastk ? (
+        <Connect onClick={changeNetwork}>
+          <p>
+            {isConnected.connectedToNetwork ? "Connected" : "Change Network"}
+          </p>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
             alt="Metamask Logo"
           />
         </Connect>
-      )}
-      {isConnected.connectedToNetwork === false && (
-        <Connect onClick={changeNetwork}>
-          <p>Change network</p>
+      ) : (
+        <Connect onClick={connect}>
+          <p>Connect</p>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
             alt="Metamask Logo"
