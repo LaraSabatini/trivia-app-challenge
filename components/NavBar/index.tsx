@@ -17,10 +17,42 @@ function NavBar() {
     isConnected,
     changeNetwork,
     checkIfIsAlreadyConnected,
+    handleChainChanged,
+    setIsConnected,
+    setAccount,
+    account,
   } = useContext(AppContext)
 
   useEffect(() => {
     checkIfIsAlreadyConnected()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Detect changes on network and account
+  useEffect(() => {
+    if (typeof window !== undefined && window.ethereum) {
+      window.ethereum.on("chainChanged", async (chainId: string) => {
+        if (account.length === 0) {
+          checkIfIsAlreadyConnected()
+        } else {
+          handleChainChanged(chainId, true)
+        }
+      })
+      window.ethereum.on("accountsChanged", (accounts: string[]) => {
+        setAccount(accounts)
+        if (accounts.length === 0) {
+          setIsConnected({
+            connectedToMetamastk: false,
+            connectedToNetwork: isConnected.connectedToNetwork,
+          })
+        } else {
+          setIsConnected({
+            connectedToMetamastk: true,
+            connectedToNetwork: isConnected.connectedToNetwork,
+          })
+        }
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

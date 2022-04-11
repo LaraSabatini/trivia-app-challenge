@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-alert */
 import { createContext, useState } from "react"
 import web3 from "web3"
@@ -9,6 +8,9 @@ export const AppContext = createContext({
   connect: null,
   changeNetwork: null,
   checkIfIsAlreadyConnected: null,
+  handleChainChanged: null,
+  account: null,
+  setAccount: null,
 })
 
 function AppProvider({ children }) {
@@ -28,6 +30,8 @@ function AppProvider({ children }) {
     Goerli: "0x5",
     Kovan: "0x2a",
   }
+
+  const [account, setAccount] = useState<string[]>()
 
   // To detect which network is connected to the network
   const handleChainChanged = (
@@ -54,13 +58,16 @@ function AppProvider({ children }) {
     const chainId = await ethereum.request({ method: "eth_chainId" })
 
     if (typeof window !== undefined && ethereum) {
-      ethereum.request({ method: "eth_requestAccounts" }).then(() => {
-        setIsConnected({
-          connectedToMetamastk: true,
-          connectedToNetwork: isConnected.connectedToNetwork,
+      ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((accounts: any) => {
+          setIsConnected({
+            connectedToMetamastk: true,
+            connectedToNetwork: isConnected.connectedToNetwork,
+          })
+          handleChainChanged(chainId, true)
+          setAccount(accounts)
         })
-        handleChainChanged(chainId, true)
-      })
     } else {
       alert("Please install metamask extension to continue")
     }
@@ -79,27 +86,18 @@ function AppProvider({ children }) {
 
   // To check if is already connected to the network
   const checkIfIsAlreadyConnected = async () => {
-    console.log("chequeando si ya esta conectado")
-
     if (typeof window !== undefined) {
       const { ethereum } = window
       // Check if is connected to metamask
       const connectedToMetamastk = await ethereum.request({
         method: "eth_accounts",
       })
+
       const chainId = await ethereum.request({ method: "eth_chainId" })
 
       if (connectedToMetamastk.length > 0) {
-        setIsConnected({
-          connectedToMetamastk: true,
-          connectedToNetwork: isConnected.connectedToNetwork,
-        })
         handleChainChanged(chainId, true)
       } else {
-        setIsConnected({
-          connectedToMetamastk: false,
-          connectedToNetwork: isConnected.connectedToNetwork,
-        })
         handleChainChanged(chainId, false)
       }
     }
@@ -114,6 +112,9 @@ function AppProvider({ children }) {
         connect,
         changeNetwork,
         checkIfIsAlreadyConnected,
+        handleChainChanged,
+        account,
+        setAccount,
       }}
     >
       {children}
