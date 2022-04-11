@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useContext, useEffect } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
 import { AppContext } from "contexts/appContext"

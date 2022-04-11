@@ -31,7 +31,7 @@ function AppProvider({ children }) {
     Kovan: "0x2a",
   }
 
-  const [account, setAccount] = useState<string[]>()
+  const [account, setAccount] = useState<string[]>([])
 
   // To detect which network is connected to the network
   const handleChainChanged = (
