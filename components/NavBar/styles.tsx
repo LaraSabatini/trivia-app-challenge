@@ -6,7 +6,6 @@ const Navigation = styled.nav`
   justify-content: space-between;
   align-items: flex-end;
   margin: 0 auto;
-  padding: 30px;
   width: 100%;
 `
 
@@ -96,4 +95,26 @@ const Connect = styled.button`
   }
 `
 
-export { Navigation, Title, ImageContainer, LogoContainer, Connect }
+const Balance = styled.p`
+  color: ${theme.colors.white};
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 30px;
+  width: 100%;
+`
+
+export {
+  Navigation,
+  Title,
+  ImageContainer,
+  LogoContainer,
+  Connect,
+  Balance,
+  Container,
+}

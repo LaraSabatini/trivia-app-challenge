@@ -1,5 +1,8 @@
+/* eslint-disable no-console */
 import React, { useContext, useEffect } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
+import getBalance from "services/getBalance.service"
+import token from "tokens/QUIZ.json"
 import { AppContext } from "contexts/appContext"
 import {
   Navigation,
@@ -7,6 +10,8 @@ import {
   ImageContainer,
   LogoContainer,
   Connect,
+  Balance,
+  Container,
 } from "./styles"
 
 function NavBar() {
@@ -20,12 +25,28 @@ function NavBar() {
     setIsConnected,
     setAccount,
     account,
+    setBalance,
+    balance,
   } = useContext(AppContext)
+
+  const prueba = async () => {
+    const res = await getBalance(token.address, account[0])
+    setBalance(res.result)
+  }
+
+  useEffect(() => {
+    if (account.length > 0) {
+      prueba()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account])
 
   useEffect(() => {
     checkIfIsAlreadyConnected()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  console.log("balance", balance)
 
   // Detect changes on network and account
   useEffect(() => {
@@ -56,33 +77,36 @@ function NavBar() {
   }, [])
 
   return (
-    <Navigation>
-      <LogoContainer>
-        <ImageContainer>
-          <img src={plainContent?.image} alt="Logo" />
-        </ImageContainer>
-        <Title>{plainContent?.title}</Title>
-      </LogoContainer>
-      {isConnected.connectedToMetamastk ? (
-        <Connect onClick={changeNetwork}>
-          <p>
-            {isConnected.connectedToNetwork ? "Connected" : "Change Network"}
-          </p>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
-            alt="Metamask Logo"
-          />
-        </Connect>
-      ) : (
-        <Connect onClick={connect}>
-          <p>Connect</p>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
-            alt="Metamask Logo"
-          />
-        </Connect>
-      )}
-    </Navigation>
+    <Container>
+      <Navigation>
+        <LogoContainer>
+          <ImageContainer>
+            <img src={plainContent?.image} alt="Logo" />
+          </ImageContainer>
+          <Title>{plainContent?.title}</Title>
+        </LogoContainer>
+        {isConnected.connectedToMetamastk ? (
+          <Connect onClick={changeNetwork}>
+            <p>
+              {isConnected.connectedToNetwork ? "Connected" : "Change Network"}
+            </p>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
+              alt="Metamask Logo"
+            />
+          </Connect>
+        ) : (
+          <Connect onClick={connect}>
+            <p>Connect</p>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png"
+              alt="Metamask Logo"
+            />
+          </Connect>
+        )}
+      </Navigation>
+      {balance !== undefined && <Balance>Balance: {balance}</Balance>}
+    </Container>
   )
 }
 
