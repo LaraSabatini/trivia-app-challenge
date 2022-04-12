@@ -6,3 +6,6 @@
 
 # github
 .github
+
+# env variables
+.env
