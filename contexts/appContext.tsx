@@ -11,6 +11,8 @@ export const AppContext = createContext({
   handleChainChanged: null,
   account: null,
   setAccount: null,
+  balance: null,
+  setBalance: null,
 })
 
 function AppProvider({ children }) {
@@ -32,6 +34,7 @@ function AppProvider({ children }) {
   }
 
   const [account, setAccount] = useState<string[]>([])
+  const [balance, setBalance] = useState<number>()
 
   // To detect which network is connected to the network
   const handleChainChanged = (
@@ -116,6 +119,8 @@ function AppProvider({ children }) {
         handleChainChanged,
         account,
         setAccount,
+        balance,
+        setBalance,
       }}
     >
       {children}
