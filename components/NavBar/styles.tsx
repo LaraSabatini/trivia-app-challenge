@@ -8,6 +8,7 @@ const Navigation = styled.nav`
   margin: 0 auto;
   padding: 30px;
   width: 100%;
+  position: relative;
 `
 
 const LogoContainer = styled.div`
@@ -96,4 +97,12 @@ const Connect = styled.button`
   }
 `
 
-export { Navigation, Title, ImageContainer, LogoContainer, Connect }
+const Balance = styled.p`
+  color: ${theme.colors.white};
+  position: absolute;
+  z-index: 10;
+  left: 87.8%;
+  top: 120px;
+`
+
+export { Navigation, Title, ImageContainer, LogoContainer, Connect, Balance }
