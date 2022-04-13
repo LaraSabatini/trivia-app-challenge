@@ -2,6 +2,10 @@
 import { createContext, useState } from "react"
 import web3 from "web3"
 
+interface Window {
+  ethereum: any
+}
+
 export const AppContext = createContext({
   isConnected: null,
   setIsConnected: null,
@@ -13,9 +17,16 @@ export const AppContext = createContext({
   setAccount: null,
   balance: null,
   setBalance: null,
+  isMobile: null,
+  setIsMobile: null,
+  modalView: null,
+  setModalView: null,
 })
 
 function AppProvider({ children }) {
+  // State to check if the user is on mobile or desktop
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [modalView, setModalView] = useState<boolean>(false)
   // State to see if the wallet is connected to the wallet and the right network
   const [isConnected, setIsConnected] = useState<{
     connectedToMetamastk: boolean
@@ -121,6 +132,10 @@ function AppProvider({ children }) {
         setAccount,
         balance,
         setBalance,
+        isMobile,
+        setIsMobile,
+        modalView,
+        setModalView,
       }}
     >
       {children}

@@ -5,6 +5,7 @@ export default {
     gray: "#E6E6E6",
     orange: "#E99859",
     orange_background: "#FFB86C",
+    orange_notification: "#B87745",
     orange_light: "#ECC19F",
     green: "#50FA7B",
     red: "#FF5555",
