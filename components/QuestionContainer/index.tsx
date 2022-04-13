@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 import React, { useEffect, useContext, useState } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
@@ -25,6 +26,7 @@ function QuestionContainer() {
   const { plainContent } = useContext(PlainContentContext)
   const [answered, setAnswered] = useState<boolean>(false)
   const [renderTime, setRenderTime] = useState<string>("")
+  const [idsSelected, setIdsSelected] = useState<number[]>([])
 
   useEffect(() => {
     setQuestions(plainContent.questions)
@@ -34,15 +36,20 @@ function QuestionContainer() {
   }, [])
 
   const selectAnswer = (id: number) => {
-    setAnswersSelected([
-      ...answersSelected,
-      {
-        question_id: questions[currentQuestion].id,
-        answer_id: id,
-      },
-    ])
+    if (!answered) {
+      setAnswersSelected([
+        ...answersSelected,
+        {
+          question_id: questions[currentQuestion].id,
+          answer_id: id,
+        },
+      ])
+      setIdsSelected([...idsSelected, id])
+    }
     setAnswered(true)
   }
+
+  console.log(answersSelected)
 
   useEffect(() => {
     if (questions.length > 0 && currentQuestion < questions.length) {
@@ -80,6 +87,7 @@ function QuestionContainer() {
                       onClick={() => selectAnswer(answer.id)}
                       isCorrect={answer.value}
                       answered={answered}
+                      selected={idsSelected.indexOf(answer.id) !== -1}
                     >
                       {answer.text}
                     </Option>
