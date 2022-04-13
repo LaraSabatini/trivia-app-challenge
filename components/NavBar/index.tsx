@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useContext, useEffect } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
 import getBalance from "services/getBalance.service"
@@ -45,8 +44,6 @@ function NavBar() {
     checkIfIsAlreadyConnected()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  console.log("balance", balance)
 
   // Detect changes on network and account
   useEffect(() => {
