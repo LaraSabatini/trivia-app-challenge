@@ -28,14 +28,14 @@ function NavBar() {
     balance,
   } = useContext(AppContext)
 
-  const prueba = async () => {
+  const renderBalance = async () => {
     const res = await getBalance(token.address, account[0])
     setBalance(res.result)
   }
 
   useEffect(() => {
     if (account.length > 0) {
-      prueba()
+      renderBalance()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account])
