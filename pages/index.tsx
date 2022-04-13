@@ -1,16 +1,19 @@
 import type { NextPage } from "next"
 import PlainContentProvider from "contexts/plainContentContext"
+import SurveyProvider from "contexts/surveyContext"
 import AppProvider from "contexts/appContext"
 import MainContainer from "components/AppContainer"
 
 // eslint-disable-next-line react/function-component-definition
 const Home: NextPage = () => {
   return (
-    <AppProvider>
+    <SurveyProvider>
       <PlainContentProvider>
-        <MainContainer />
+        <AppProvider>
+          <MainContainer />
+        </AppProvider>
       </PlainContentProvider>
-    </AppProvider>
+    </SurveyProvider>
   )
 }
 

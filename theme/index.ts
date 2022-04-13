@@ -6,6 +6,8 @@ export default {
     orange: "#E99859",
     orange_background: "#FFB86C",
     orange_light: "#ECC19F",
+    green: "#50FA7B",
+    red: "#FF5555",
   },
   fontSizes: {
     title: "30px",

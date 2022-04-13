@@ -3,7 +3,7 @@ import theme from "theme/index"
 
 const StartButton = styled.button<{ active: boolean }>`
   display: flex;
-  margin: 200px auto;
+  margin: 170px auto;
   outline: none;
   border: 2px solid transparent;
   padding: 20px 25px;
