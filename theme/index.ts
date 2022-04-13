@@ -21,7 +21,7 @@ export default {
   resolutions: {
     desktop: "1920px",
     secondDesktop: "1366px",
-    tablet: "750px",
+    tablet: "770px",
     mobile: "450px",
   },
 }
