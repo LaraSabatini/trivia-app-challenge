@@ -6,6 +6,7 @@ import NavBar from "components/NavBar"
 import QuestionContainer from "components/QuestionContainer"
 import getPlainContent from "services/getPlainContent.service"
 import {StartButton, Modal, Title, Description} from "./styles"
+import { CloseOutlined } from "@ant-design/icons"
 
 function MainContainer() {
   const { setPlainContent } = useContext(PlainContentContext)
@@ -42,7 +43,7 @@ function MainContainer() {
     <>
       {modalView && <Modal>
         <Title>Notice
-          <button onClick={() => setModalView(false)} type="button">X</button>
+          <button onClick={() => setModalView(false)} type="button"><CloseOutlined /></button>
         </Title>
         <Description>
           To use this app from a mobile device, please install the Metamask App and use it's browser. For more information 
