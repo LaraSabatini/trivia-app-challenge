@@ -11,7 +11,7 @@ const StartButton = styled.button<{ active: boolean }>`
   font-size: ${theme.fontSizes.mainButton};
   border-radius: 10px;
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: ${theme.resolutions.tablet}) {
     border-radius: 10px;
     font-size: ${theme.fontSizes.button};
   }
@@ -32,4 +32,45 @@ const StartButton = styled.button<{ active: boolean }>`
         `}
 `
 
-export default StartButton
+const Modal = styled.div`
+  position: absolute;
+  z-index: 10;
+  background: ${theme.colors.white};
+  width: 330px;
+  border-radius: 10px;
+  padding: 20px 15px;
+  top: 150px;
+  left: 45px;
+  box-shadow: 0px 4px 15px rgba(40, 42, 54, 0.5);
+
+  @media screen and (max-width: ${theme.resolutions.secondMobile}) {
+    left: 20px;
+  }
+`
+
+const Title = styled.h5`
+  font-size: ${theme.fontSizes.mainButton};
+  color: ${theme.colors.orange_notification};
+  margin: 0;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+`
+
+const Description = styled.div`
+  margin: 0;
+  color: ${theme.colors.primary};
+  font-size: ${theme.fontSizes.button};
+
+  a {
+    color: ${theme.colors.orange_notification}
+  }
+`
+
+export {StartButton, Modal, Description, Title}
