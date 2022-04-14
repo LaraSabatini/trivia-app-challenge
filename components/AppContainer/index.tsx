@@ -5,8 +5,9 @@ import { AppContext } from "contexts/appContext"
 import NavBar from "components/NavBar"
 import QuestionContainer from "components/QuestionContainer"
 import getPlainContent from "services/getPlainContent.service"
-import {StartButton, Modal, Title, Description} from "./styles"
+import { StartButton, Modal, Title, Description } from "./styles"
 import { CloseOutlined } from "@ant-design/icons"
+import { Button } from "antd"
 
 function MainContainer() {
   const { setPlainContent } = useContext(PlainContentContext)
@@ -23,11 +24,9 @@ function MainContainer() {
     renderingStart()
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
       setIsMobile(true)
-      console.log("mobile")
       setModalView(true)
     }else{
       setIsMobile(false)
-      console.log("desktop")
       setModalView(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,7 +42,7 @@ function MainContainer() {
     <>
       {modalView && <Modal>
         <Title>Notice
-          <button onClick={() => setModalView(false)} type="button"><CloseOutlined /></button>
+          <Button onClick={() => setModalView(false)} icon={<CloseOutlined/>}/>
         </Title>
         <Description>
           To use this app from a mobile device, please install the Metamask App and use it's browser. For more information 

@@ -49,8 +49,6 @@ function QuestionContainer() {
     setAnswered(true)
   }
 
-  console.log(answersSelected)
-
   useEffect(() => {
     if (questions.length > 0 && currentQuestion < questions.length) {
       setAnswered(false)
