@@ -24,5 +24,6 @@ export default {
     secondDesktop: "1366px",
     tablet: "770px",
     mobile: "450px",
+    secondMobile: "360px"
   },
 }
