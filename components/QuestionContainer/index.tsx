@@ -3,6 +3,7 @@
 import React, { useEffect, useContext, useState } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
 import { SurveyContext } from "contexts/surveyContext"
+import { AnswerInterface } from "interfaces/surveyInterfaces"
 import Results from "components/ResultsCard"
 import {
   Card,
@@ -38,18 +39,15 @@ function QuestionContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const selectAnswer = (answer: {
-    text: string
-    value: boolean
-    id: number
-  }) => {
+  const selectAnswer = (answer: AnswerInterface) => {
     if (!answered) {
       setAnswersSelected([
         ...answersSelected,
         {
           question_id: questions[currentQuestion].id,
           answer_id: answer.id,
-          value: answer.value
+          value: answer.value,
+          text: answer.text
         },
       ])
       setIdsSelected([...idsSelected, answer.id])
@@ -93,7 +91,7 @@ function QuestionContainer() {
             <OptionsContainer>
               {questions.length > 0 &&
                 questions[currentQuestion].options.map(
-                  (answer: { text: string; value: boolean; id: number }) => (
+                  (answer: AnswerInterface) => (
                     <Option
                       key={answer.id}
                       onClick={() => selectAnswer(answer)}

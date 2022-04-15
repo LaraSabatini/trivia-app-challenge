@@ -1,4 +1,5 @@
 import { createContext, useState } from "react"
+import { QuestionsInterface, AnswersSelectedInterface } from "interfaces/surveyInterfaces"
 
 export const SurveyContext = createContext({
   currentQuestion: null,
@@ -16,27 +17,9 @@ export const SurveyContext = createContext({
 function SurveyProvider({ children }) {
   const [surveyView, setSurveyView] = useState<boolean>(false)
   const [currentQuestion, setCurrentQuestion] = useState<number>(0)
-  const [questions, setQuestions] = useState<
-    {
-      text: string
-      image: string
-      lifetimeSeconds: number
-      id: number
-      options: {
-        text: string
-        value: boolean
-        id: number
-      }[]
-    }[]
-  >([])
+  const [questions, setQuestions] = useState<QuestionsInterface[]>([])
 
-  const [answersSelected, setAnswersSelected] = useState<
-    {
-      question_id: number
-      answer_id: number
-      value: boolean
-    }[]
-  >([])
+  const [answersSelected, setAnswersSelected] = useState<AnswersSelectedInterface[]>([])
 
   const [checkResults, setCheckResults] = useState<boolean>(false)
 
