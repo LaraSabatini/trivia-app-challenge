@@ -9,6 +9,8 @@ export const SurveyContext = createContext({
   setQuestions: null,
   answersSelected: null,
   setAnswersSelected: null,
+  checkResults: null,
+  setCheckResults: null,
 })
 
 function SurveyProvider({ children }) {
@@ -32,8 +34,11 @@ function SurveyProvider({ children }) {
     {
       question_id: number
       answer_id: number
+      value: boolean
     }[]
   >([])
+
+  const [checkResults, setCheckResults] = useState<boolean>(false)
 
   return (
     <SurveyContext.Provider
@@ -47,6 +52,8 @@ function SurveyProvider({ children }) {
         setQuestions,
         answersSelected,
         setAnswersSelected,
+        checkResults,
+        setCheckResults,
       }}
     >
       {children}

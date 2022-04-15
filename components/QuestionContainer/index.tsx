@@ -3,6 +3,7 @@
 import React, { useEffect, useContext, useState } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
 import { SurveyContext } from "contexts/surveyContext"
+import Results from "components/ResultsCard"
 import {
   Card,
   CardContainer,
@@ -22,6 +23,7 @@ function QuestionContainer() {
     setCurrentQuestion,
     currentQuestion,
     setAnswersSelected,
+    setCheckResults,
   } = useContext(SurveyContext)
   const { plainContent } = useContext(PlainContentContext)
   const [answered, setAnswered] = useState<boolean>(false)
@@ -32,19 +34,25 @@ function QuestionContainer() {
     setQuestions(plainContent.questions)
     setCurrentQuestion(0)
     setAnswered(false)
+    setCheckResults(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const selectAnswer = (id: number) => {
+  const selectAnswer = (answer: {
+    text: string
+    value: boolean
+    id: number
+  }) => {
     if (!answered) {
       setAnswersSelected([
         ...answersSelected,
         {
           question_id: questions[currentQuestion].id,
-          answer_id: id,
+          answer_id: answer.id,
+          value: answer.value
         },
       ])
-      setIdsSelected([...idsSelected, id])
+      setIdsSelected([...idsSelected, answer.id])
     }
     setAnswered(true)
   }
@@ -68,6 +76,12 @@ function QuestionContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questions, currentQuestion])
 
+  useEffect(() => {
+     if (currentQuestion === questions.length) {
+       setCheckResults(true)
+     }
+  }, [currentQuestion])
+
   return (
     <CardContainer>
       {currentQuestion <= questions.length - 1 ? (
@@ -82,7 +96,7 @@ function QuestionContainer() {
                   (answer: { text: string; value: boolean; id: number }) => (
                     <Option
                       key={answer.id}
-                      onClick={() => selectAnswer(answer.id)}
+                      onClick={() => selectAnswer(answer)}
                       isCorrect={answer.value}
                       answered={answered}
                       selected={idsSelected.indexOf(answer.id) !== -1}
@@ -107,7 +121,7 @@ function QuestionContainer() {
           </ImageContainer>
         </Card>
       ) : (
-        <p>Results:</p>
+        <Results/>
       )}
     </CardContainer>
   )
