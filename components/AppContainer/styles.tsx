@@ -69,8 +69,8 @@ const Description = styled.div`
   font-size: ${theme.fontSizes.button};
 
   a {
-    color: ${theme.colors.orange_notification}
+    color: ${theme.colors.orange_notification};
   }
 `
 
-export {StartButton, Modal, Description, Title}
+export { StartButton, Modal, Description, Title }

@@ -52,13 +52,8 @@ const Send = styled.button`
   margin: 10px;
   border: 1px solid transparent;
   &:hover {
-    border: 1px solid ${theme.colors.orange_background}
+    border: 1px solid ${theme.colors.orange_background};
   }
 `
 
-export {
-    ResultsContainer,
-    Content,
-    Send,
-    Answer
-}
+export { ResultsContainer, Content, Send, Answer }

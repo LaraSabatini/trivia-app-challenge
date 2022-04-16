@@ -30,7 +30,7 @@ const Title = styled.h4`
   font-size: ${theme.fontSizes.secondDesktop};
   @media screen and (max-width: ${theme.resolutions.tablet}) {
     font-size: ${theme.fontSizes.button};
-    text-align:center;
+    text-align: center;
   }
 `
 
