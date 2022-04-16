@@ -347,9 +347,7 @@
         }
       ],
       "name": "submit",
-      "outputs": [
-        
-      ],
+      "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
