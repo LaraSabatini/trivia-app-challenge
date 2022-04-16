@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 import React, { useEffect, useContext, useState } from "react"
 import { PlainContentContext } from "contexts/plainContentContext"
