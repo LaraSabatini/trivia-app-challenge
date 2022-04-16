@@ -72,9 +72,8 @@ function AppProvider({ children }) {
     const chainId = await ethereum.request({ method: "eth_chainId" })
 
     if (typeof window !== undefined && ethereum) {
-      // window.ethereum.enable()
       ethereum
-        .request({ method: "eth_requestAccounts" })
+      .request({ method: "eth_requestAccounts" })
         .then((accounts: any) => {
           setIsConnected({
             connectedToMetamastk: true,
