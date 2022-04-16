@@ -40,7 +40,7 @@ To be more specific is the following error:
 Fail with error 'Cooldown period not finished'
 Warning! Error encountered during contract execution [execution reverted]
 ```
-Although this error appears, at times the transactions can be executed
+Although this error appears, at times the transactions can be executed.
 Sometimes the error makes it impossible to execute the contract and get the tokens. If you have information on how to solve it, I would be grateful.
 
 Here I leave examples of successful and denied transactions:
