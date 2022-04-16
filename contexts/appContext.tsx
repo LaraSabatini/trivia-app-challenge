@@ -2,10 +2,6 @@
 import { createContext, useState } from "react"
 import web3 from "web3"
 
-interface Window {
-  ethereum: any
-}
-
 export const AppContext = createContext({
   isConnected: null,
   setIsConnected: null,
