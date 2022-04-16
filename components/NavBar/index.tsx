@@ -3,7 +3,6 @@ import token from "tokens/QUIZ.json"
 import getBalance from "services/getBalance.service"
 import { PlainContentContext } from "contexts/plainContentContext"
 import { AppContext } from "contexts/appContext"
-// COMPONENTS & STYLES
 import {
   Navigation,
   Title,
@@ -46,8 +45,6 @@ function NavBar() {
     checkIfIsAlreadyConnected()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-
 
   // Detect changes on network and account
   useEffect(() => {

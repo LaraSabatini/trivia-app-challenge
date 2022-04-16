@@ -1,5 +1,8 @@
 import { createContext, useState } from "react"
-import { QuestionsInterface, AnswersSelectedInterface } from "interfaces/surveyInterfaces"
+import {
+  QuestionsInterface,
+  AnswersSelectedInterface,
+} from "interfaces/surveyInterfaces"
 
 export const SurveyContext = createContext({
   currentQuestion: null,
@@ -19,7 +22,9 @@ function SurveyProvider({ children }) {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0)
   const [questions, setQuestions] = useState<QuestionsInterface[]>([])
 
-  const [answersSelected, setAnswersSelected] = useState<AnswersSelectedInterface[]>([])
+  const [answersSelected, setAnswersSelected] = useState<
+    AnswersSelectedInterface[]
+  >([])
 
   const [checkResults, setCheckResults] = useState<boolean>(false)
 

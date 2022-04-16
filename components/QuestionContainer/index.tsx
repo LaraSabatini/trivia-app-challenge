@@ -46,7 +46,7 @@ function QuestionContainer() {
           question_id: questions[currentQuestion].id,
           answer_id: answer.id,
           value: answer.value,
-          text: answer.text
+          text: answer.text,
         },
       ])
       setIdsSelected([...idsSelected, answer.id])
@@ -74,9 +74,10 @@ function QuestionContainer() {
   }, [questions, currentQuestion])
 
   useEffect(() => {
-     if (currentQuestion === questions.length) {
-       setCheckResults(true)
-     }
+    if (currentQuestion === questions.length) {
+      setCheckResults(true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestion])
 
   return (
@@ -118,7 +119,7 @@ function QuestionContainer() {
           </ImageContainer>
         </Card>
       ) : (
-        <Results/>
+        <Results />
       )}
     </CardContainer>
   )
