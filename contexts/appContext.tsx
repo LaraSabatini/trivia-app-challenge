@@ -2,10 +2,6 @@
 import { createContext, useState } from "react"
 import web3 from "web3"
 
-interface Window {
-  ethereum: any
-}
-
 export const AppContext = createContext({
   isConnected: null,
   setIsConnected: null,
@@ -72,7 +68,6 @@ function AppProvider({ children }) {
     const chainId = await ethereum.request({ method: "eth_chainId" })
 
     if (typeof window !== undefined && ethereum) {
-      // window.ethereum.enable()
       ethereum
         .request({ method: "eth_requestAccounts" })
         .then((accounts: any) => {
