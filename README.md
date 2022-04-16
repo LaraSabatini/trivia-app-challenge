@@ -23,9 +23,14 @@ To get an etherscan token click [here](https://etherscan.io/), create an account
 
 ### Project view
 
+#### On desktop
 ![Home](./images/home.png)
 ![Survey](./images/survey.png)
 ![Results](./images/results.png)
+
+#### On Mobile
+![Mobile](./images/mobile2.jpeg)
+![Mobile](./images/mobile1.jpeg)
 
 
 ### See live project
