@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Web3 from "web3"
 import token from "tokens/QUIZ.json"
 import { SurveyContext } from "contexts/surveyContext"
@@ -18,13 +18,8 @@ import { ResultsContainer, Content, Send, Answer } from "./styles"
 import { Title } from "../QuestionContainer/styles"
 
 function Results() {
-  const {
-    checkResults,
-    questions,
-    answersSelected,
-    setAnswersSelected,
-  } = useContext(SurveyContext)
-
+  const { checkResults, questions, answersSelected } = useContext(SurveyContext)
+  const [newAnswers, setNewAnswers] = useState<AnswersSelectedInterface[]>([])
   const { setBalance, account } = useContext(AppContext)
 
   const checkIfAllQuestionsHaveBeenAnswered = () => {
@@ -43,12 +38,12 @@ function Results() {
       for (let i = 0; i < answersToAdd.length; i++) {
         newArrayOfAnswers.push({
           question_id: answersToAdd[i],
-          answer_id: 0,
+          answer_id: Math.floor(Math.random() * 10) + 1,
           value: false,
           text: "Without answer",
         })
       }
-      setAnswersSelected(newArrayOfAnswers)
+      setNewAnswers(newArrayOfAnswers)
     }
   }
 
@@ -67,9 +62,12 @@ function Results() {
 
     const id = generateId(5)
 
-    const answers = answersSelected.map(
-      (answer: AnswersSelectedInterface) => `${answer.answer_id}`,
+    const answers = newAnswers.map(
+      (answer: AnswersSelectedInterface) => answer.answer_id,
     )
+
+    // eslint-disable-next-line no-console
+    console.log(newAnswers)
 
     submit(contract, id, answers, account[0])
       .then(async () => {
@@ -89,7 +87,7 @@ function Results() {
     <ResultsContainer>
       <Title>Results:</Title>
       <Content>
-        {answersSelected.map((answer: AnswersSelectedInterface) => (
+        {newAnswers.map((answer: AnswersSelectedInterface) => (
           <Answer key={answer.answer_id}>
             {answer.value ? (
               <CheckCircleOutlined style={{ color: `${theme.colors.green}` }} />
