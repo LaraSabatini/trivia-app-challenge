@@ -10,6 +10,8 @@ To start with this project, first clone this repo and run the following command:
 
 ```
 yarn install
+---
+yarn dev
 ```
 
 For the environment variables create an **.env** file with the following keys
