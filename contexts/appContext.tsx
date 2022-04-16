@@ -67,11 +67,12 @@ function AppProvider({ children }) {
 
   // To connect wallet
   const connect = async () => {
-    const { ethereum } = window
+    const { ethereum } = window as any
     // Get the chain id
     const chainId = await ethereum.request({ method: "eth_chainId" })
 
     if (typeof window !== undefined && ethereum) {
+      // window.ethereum.enable()
       ethereum
         .request({ method: "eth_requestAccounts" })
         .then((accounts: any) => {
@@ -89,7 +90,7 @@ function AppProvider({ children }) {
 
   // To change network
   const changeNetwork = async () => {
-    const { ethereum } = window
+    const { ethereum } = window as any
     await ethereum.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: web3.utils.toHex(networks.Ropsten) }],
@@ -101,7 +102,7 @@ function AppProvider({ children }) {
   // To check if is already connected to the network
   const checkIfIsAlreadyConnected = async () => {
     if (typeof window !== undefined) {
-      const { ethereum } = window
+      const { ethereum } = window as any
       // Check if is connected to metamask
       const connectedToMetamastk = await ethereum.request({
         method: "eth_accounts",

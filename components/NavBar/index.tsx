@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react"
-import { PlainContentContext } from "contexts/plainContentContext"
-import getBalance from "services/getBalance.service"
 import token from "tokens/QUIZ.json"
+import getBalance from "services/getBalance.service"
+import { PlainContentContext } from "contexts/plainContentContext"
 import { AppContext } from "contexts/appContext"
+// COMPONENTS & STYLES
 import {
   Navigation,
   Title,
@@ -30,7 +31,8 @@ function NavBar() {
 
   const renderBalance = async () => {
     const res = await getBalance(token.address, account[0])
-    setBalance(res.result)
+    const divide = 100000000000000000
+    setBalance(res.result / (10 * divide))
   }
 
   useEffect(() => {
@@ -45,31 +47,36 @@ function NavBar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+
+
   // Detect changes on network and account
   useEffect(() => {
-    if (typeof window !== undefined && window.ethereum) {
-      window.ethereum.on("chainChanged", async (chainId: string) => {
-        if (account.length === 0) {
-          checkIfIsAlreadyConnected()
-        } else {
-          handleChainChanged(chainId, true)
-        }
-      })
-      window.ethereum.on("accountsChanged", (accounts: string[]) => {
-        setAccount(accounts)
-        if (accounts.length === 0) {
-          setIsConnected({
-            connectedToMetamastk: false,
-            connectedToNetwork: isConnected.connectedToNetwork,
-          })
-        } else {
-          setIsConnected({
-            connectedToMetamastk: true,
-            connectedToNetwork: isConnected.connectedToNetwork,
-          })
-        }
-      })
-    }
+    if (typeof window !== undefined) {
+      const { ethereum } = window as any
+      if (ethereum) {
+        ethereum.on("chainChanged", async (chainId: string) => {
+          if (account.length === 0) {
+            checkIfIsAlreadyConnected()
+          } else {
+            handleChainChanged(chainId, true)
+          }
+        })
+        ethereum.on("accountsChanged", (accounts: string[]) => {
+          setAccount(accounts)
+          if (accounts.length === 0) {
+            setIsConnected({
+              connectedToMetamastk: false,
+              connectedToNetwork: isConnected.connectedToNetwork,
+            })
+          } else {
+            setIsConnected({
+              connectedToMetamastk: true,
+              connectedToNetwork: isConnected.connectedToNetwork,
+            })
+          }
+        })
+      }
+      }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -102,7 +109,7 @@ function NavBar() {
           </Connect>
         )}
       </Navigation>
-      {balance !== undefined && <Balance>Balance: {balance}</Balance>}
+      {balance !== undefined && <Balance>Balance: {balance} QUIZ</Balance>}
     </Container>
   )
 }
