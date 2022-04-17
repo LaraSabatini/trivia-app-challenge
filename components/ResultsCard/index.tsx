@@ -66,9 +66,6 @@ function Results() {
       (answer: AnswersSelectedInterface) => answer.answer_id,
     )
 
-    // eslint-disable-next-line no-console
-    console.log(newAnswers)
-
     submit(contract, id, answers, account[0])
       .then(async () => {
         const newBalance = await getBalance(token.address, account[0])
