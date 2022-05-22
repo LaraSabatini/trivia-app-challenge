@@ -1,5 +1,5 @@
 
-# Rather Labs Trivia Challenge
+# Trivia App Challenge
 
 #### Description
 The challenge is to create a dynamic trivia so that users can participate and be awarded with tokens.
